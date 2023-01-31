@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="usernameHint">\'Ονομα Χρήστη</string>
+    <string name="passHint">"Κωδικός "</string>
+    <string name="login_btn_txt">Σύνδεση</string>
+    <string name="register_btn_txt">Εγγραφή</string>
+    <string name="admin">Διαχειριστής</string>
+    <string name="wrongUP">Λάθος όνομα ή κωδικός</string>
+    <string name="welcome">Καλώς ήρθες χρήστη</string>
+    <string name="welcome_admin">Καλώς ήρθες Διαχειριστή</string>
+    <string name="alert_label">"Νέα Είδοποιηση "</string>
+    <string name="location">Τοποθεσία</string>
+    <string name="alertType">Είδος κινδύνου</string>
+    <string name="dateTime">Ημερομηνία</string>
+    <string name="description">Περιγραφή</string>
+    <string name="newAlert">Ειδοποίηση κινδίνου</string>
+    <string name="choose">Επιλέξτε</string>
+    <string name="fire">Φωτιά</string>
+    <string name="hot">Αυξηση θερμοκρασίας</string>
+    <string name="rain">Εντονη βροχή</string>
+    <string name="empty_alertType_title">Δεν επιλεχτηκε κινδυνος</string>
+    <string name="empty_alertType_mess">Επιλεξτε μια κατηγορια κινδυνου για να συνεχίσετε</string>
+</resources>

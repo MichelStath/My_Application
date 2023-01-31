@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="usernameHint">Username</string>
+    <string name="passHint">Password</string>
+    <string name="login_btn_txt">Login</string>
+    <string name="register_btn_txt">Register</string>
+    <string name="admin">Admin</string>
+    <string name="wrongUP">Wrong Username OR Password</string>
+    <string name="welcome">Welcome User</string>
+    <string name="welcome_admin">Welcome Admin</string>
+    <string name="alert_label">Add Alert</string>
+    <string name="location">Location</string>
+    <string name="alertType">Alert Type</string>
+    <string name="dateTime">Date/Time</string>
+    <string name="description">Description</string>
+    <string name="newAlert">Set Alert</string>
+    <string name="choose">choose</string>
+    <string name="fire">Fire</string>
+    <string name="hot">Hot wheather</string>
+    <string name="rain">Raining</string>
+    <string name="empty_alertType_title">No Alert selected</string>
+    <string name="empty_alertType_mess">Select an Alert to continue</string>
+
+
+</resources>
