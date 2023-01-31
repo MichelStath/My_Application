@@ -59,8 +59,6 @@ public class AdminHomeActivity extends AppCompatActivity {
                 RecyclerView recyclerView = findViewById(R.id.recyclerview);
                 recyclerView.setLayoutManager(new LinearLayoutManager(AdminHomeActivity.this));
                 recyclerView.setAdapter(new MyAdapter(getApplicationContext(),items2));
-
-
             }
 
             @Override
@@ -76,18 +74,6 @@ public class AdminHomeActivity extends AppCompatActivity {
         }else {
             Log.i("AdminLogin","Unable to load extras");
         }
-        List<AdminAlerts>items = new ArrayList<AdminAlerts>();
-        items.add(new AdminAlerts("test","testtt",true));
-        items.add(new AdminAlerts("test2","testtt2332",true));
-        items.add(new AdminAlerts("test23","testtt4432",true));
-        items.add(new AdminAlerts("test","testtt",true));
-        items.add(new AdminAlerts("test2","testtt2332",true));
-        items.add(new AdminAlerts("test23","testtt4432",true));
-        items.add(new AdminAlerts("test","testtt",true));
-        items.add(new AdminAlerts("test2","testtt2332",true));
-        items.add(new AdminAlerts("test23","testtt4432",true));
-
-
 
     }
 

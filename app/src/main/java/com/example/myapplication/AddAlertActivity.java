@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.SurfaceTexture;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -45,6 +46,7 @@ public class AddAlertActivity extends AppCompatActivity {
     public String currentAlertDesc;
     private DatabaseReference mDatabase;
     long maxid = 0;
+    long adminMaxid =0;
     int testCount = 0;
     AlertClass alertclass;
     Location currentLocation;
@@ -100,7 +102,6 @@ public class AddAlertActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selected = parent.getItemAtPosition(position).toString();
-                //Toast.makeText(parent.getContext(), "Selected: " + selected, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -136,28 +137,11 @@ public class AddAlertActivity extends AppCompatActivity {
 
             final AlertDialog alert = dialog.create();
             alert.show();
-            //isws to baloyme kapoy
-            //Metraei poses fwties exoyme synolika
-            mDatabase.orderByChild("alertType").equalTo("Fire").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    //Toast.makeText(AddAlertActivity.this, "Snap Count " + snapshot.getValue(), Toast.LENGTH_SHORT).show();
-                    Log.i("Test",snapshot.getValue().toString());
-                    //long a = snapshot.h.getChildrenCount();
-                    //Log.i("test count",String.valueOf(a));
-                    //https://stackoverflow.com/questions/26700924/query-based-on-multiple-where-clauses-in-firebase/26701282#26701282
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
         }else {
             alertclass = new AlertClass(currentUsername,currentFixedCity,currentDatetime,selected,currentAlertDesc);
             //write to db//
             mDatabase.child(String.valueOf(maxid + 1)).setValue(alertclass);
+            addAlertToAdmin(alertclass,3);
         }
     }
 
@@ -177,4 +161,74 @@ public class AddAlertActivity extends AppCompatActivity {
         return city;
     }
 
+    public void addAlertToAdmin(AlertClass alertclass, int threshold ){
+        //ΠΡΙΝ ΑΠΟ ΟΛΑ ΠΡΕΠΕΙ ΝΑ ΣΒΗΣΟΥΝ ΤΑ ΛΗΓΜΕΝΑ
+        //get alerts db
+
+        DatabaseReference db = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Alerts");
+        //Check number of same type alerts in current location
+        String city = alertclass.getAlertLocation();
+        String type = alertclass.getAlertType();
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                int count = 0;
+                for(int i = 1; i < snapshot.getChildrenCount() + 1; i++){
+                    final String alertType = snapshot.child(String.valueOf(i)).child("alertType").getValue(String.class);
+                    final String alertCity = snapshot.child(String.valueOf(i)).child("alertLocation").getValue(String.class);
+                    Log.i("",alertType);
+                    Log.i("",alertCity);
+                    Log.i("id",String.valueOf(i));
+                    if(alertType.equals(type) && alertCity.equals(city)){
+                        count +=1;
+                        Log.i("Count",String.valueOf(count));
+                    }
+                }
+                if(count>threshold){
+
+                    //send to adminAlerts
+                    Log.i("threshold","threshold reached");
+                    AdminAlerts adminAlert = new AdminAlerts(type,city,false);
+                    //Log.i("testType",adminAlert.getAlertType());
+                    DatabaseReference admindb = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("AdminAlerts");
+                    admindb.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            if(snapshot.exists()){
+                                //get maxid from AdminAlerts DB
+                                adminMaxid = snapshot.getChildrenCount();
+                                Log.i("Adminmaxid",String.valueOf(adminMaxid));
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                    admindb.child(String.valueOf(adminMaxid + 1)).setValue(adminAlert);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
+        //if ola komple
+        //first get maxId from adminAlertDB
+        //write to adminAlert
+
+
+    }
 }
