@@ -131,7 +131,7 @@ public class AddAlertActivity extends AppCompatActivity {
 
             final AlertDialog alert = dialog.create();
             alert.show();
-            //removeExpiredAlerts();
+            //removeExpiredAlerts();////MHN KSEXASW NA TO FTIAKSW
         }else {
             alertclass = new AlertClass(currentUsername,currentFixedCity,currentDatetime,selected,currentAlertDesc);
             //write to db//
@@ -181,18 +181,6 @@ public class AddAlertActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    public Boolean okToWrite(AlertClass userAlert){
-        //ΘΕΛΩ ΝΑ ΤΣΕΚΑΡΩ ΤΟ REC
-        //AN YPARXEI ALLO ALLERT STTHN BASH ADMINALERTS ME TO IDIO REC DEN THELW NA GRAFTEI STO ADMINALERT
-        //prwta ftiaxnv to reco apo to alert poy prokeitai na graftei
-        String reco  = userAlert.getAlertTime() + userAlert.getAlertLocation() + userAlert.getAlertType();
-        //twra tha tsekarw gia kathe paidi tis bashs an exei to idio anagnwristiko
-        //an yprarxei return false
-        //an den yparxei return true
-        //sthn arxh ola komple mporei na graftei to paidi ektos an brethei to idio rec
-        return true;
     }
 
     public void addAlertToAdmin(AlertClass alertclass, int threshold ){
@@ -248,45 +236,6 @@ public class AddAlertActivity extends AppCompatActivity {
                         Log.i("Unique Reco","den yparxei .twra tha graftei");
                         db.child("AdminAlerts").child(String.valueOf(adminMaxid + 1)).setValue(adminAlert);
                     }
-
-
-
-
-//                    admindb.addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                            if(snapshot.exists()){
-//                                //get maxid from AdminAlerts DB
-//                                adminMaxid = snapshot.child("AdminAlerts").getChildrenCount();
-//                                Log.i("Adminmaxid",String.valueOf(adminMaxid));
-//
-//                                for(int i = 1; i < snapshot.child("AdminAlerts").getChildrenCount() + 1; i++){
-//                                    String childRec = snapshot.child("AdminAlerts").child(String.valueOf(i)).child("reco").getValue(String.class);
-//                                    if(childRec.equals(reco)){
-//                                        //ayto shmainei oti idi yparxei
-//                                        //do nothing
-//                                        Log.i("ChildRec",childRec);
-//                                        Log.i("reco",reco);
-//                                        Log.i("yparxei hdh","den graftike kati");
-//
-//                                    }else{
-//                                        Log.i("ChildRec",childRec);
-//                                        Log.i("reco",reco);
-//                                        Log.i("den yparxei","graftike kati");
-//                                        //ΔΕΝ ΚΑΤΑΛΑΒΑΙΝΩ ΠΩΣ ΓΙΝΕΤΑΙ ΝΑ ΜΗΝ ΜΠΑΙΝΕΙ ΕΔΩ ΜΕΣΑ ΚΑΙ ΝΑ ΤΟ ΕΚΤΕΛΕΙ .....
-//                                        admindb.child("AdminAlerts").child(String.valueOf(adminMaxid + 1)).setValue(adminAlert);
-//                                    }
-//                                }
-//                            }
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//                        }
-//                    });
-
                 }
             }
 
