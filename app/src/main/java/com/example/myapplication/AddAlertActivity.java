@@ -5,8 +5,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.SurfaceTexture;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -17,10 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +26,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,7 +45,7 @@ public class AddAlertActivity extends AppCompatActivity {
     AlertClass alertclass;
     Location currentLocation;
     Calendar c = Calendar.getInstance();
-    SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss aa");
+    SimpleDateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +131,7 @@ public class AddAlertActivity extends AppCompatActivity {
 
             final AlertDialog alert = dialog.create();
             alert.show();
+            //removeExpiredAlerts();
         }else {
             alertclass = new AlertClass(currentUsername,currentFixedCity,currentDatetime,selected,currentAlertDesc);
             //write to db//
@@ -161,11 +156,48 @@ public class AddAlertActivity extends AppCompatActivity {
         return city;
     }
 
-    public void addAlertToAdmin(AlertClass alertclass, int threshold ){
-        //ΠΡΙΝ ΑΠΟ ΟΛΑ ΠΡΕΠΕΙ ΝΑ ΣΒΗΣΟΥΝ ΤΑ ΛΗΓΜΕΝΑ
-        //get alerts db
+    public void removeExpiredAlerts(){
+        //ΛΕΙΤΟΥΡΓΕΙ ΚΑΝΟΝΙΚΑ ΑΠΛΑ **** ΑΜΑ ΔΕΝ ΣΒΗΣΕΙ ΤΟ ΤΕΛΕΥΤΑΙΟ ΠΑΙΔΙ ΔΕΝ ΜΠΟΡΕΙ ΝΑ ΞΑΝΑΓΡΑΨΕΙ ΑΛΛΟ...ΛΟΓΩ ID
+        DatabaseReference expdb = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Alerts");
+        String today = dateformat.format(c.getTime());
+        Log.i("today",today);//all good
+        expdb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(int i = 1; i < snapshot.getChildrenCount() + 1 ; i++){
+                    AlertClass testitem = snapshot.child(String.valueOf(i)).getValue(AlertClass.class);
+                    if(testitem.getAlertTime().equals(today)){
+                        Log.i("itemFromTodat",testitem.getAlertTime());
+                    }else {
+                        Log.i("itemFromOtherDay",testitem.getAlertTime());
+                        expdb.child(String.valueOf(i)).removeValue();
+                    }
+                }
+            }
 
-        DatabaseReference db = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Alerts");
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    public Boolean okToWrite(AlertClass userAlert){
+        //ΘΕΛΩ ΝΑ ΤΣΕΚΑΡΩ ΤΟ REC
+        //AN YPARXEI ALLO ALLERT STTHN BASH ADMINALERTS ME TO IDIO REC DEN THELW NA GRAFTEI STO ADMINALERT
+        //prwta ftiaxnv to reco apo to alert poy prokeitai na graftei
+        String reco  = userAlert.getAlertTime() + userAlert.getAlertLocation() + userAlert.getAlertType();
+        //twra tha tsekarw gia kathe paidi tis bashs an exei to idio anagnwristiko
+        //an yprarxei return false
+        //an den yparxei return true
+        //sthn arxh ola komple mporei na graftei to paidi ektos an brethei to idio rec
+        return true;
+    }
+
+    public void addAlertToAdmin(AlertClass alertclass, int threshold ){
+        //get alerts db
+        DatabaseReference db = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         //Check number of same type alerts in current location
         String city = alertclass.getAlertLocation();
         String type = alertclass.getAlertType();
@@ -174,9 +206,9 @@ public class AddAlertActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 int count = 0;
-                for(int i = 1; i < snapshot.getChildrenCount() + 1; i++){
-                    final String alertType = snapshot.child(String.valueOf(i)).child("alertType").getValue(String.class);
-                    final String alertCity = snapshot.child(String.valueOf(i)).child("alertLocation").getValue(String.class);
+                for(int i = 1; i < snapshot.child("Alerts").getChildrenCount() + 1; i++){
+                    final String alertType = snapshot.child("Alerts").child(String.valueOf(i)).child("alertType").getValue(String.class);
+                    final String alertCity = snapshot.child("Alerts").child(String.valueOf(i)).child("alertLocation").getValue(String.class);
                     Log.i("",alertType);
                     Log.i("",alertCity);
                     Log.i("id",String.valueOf(i));
@@ -186,33 +218,76 @@ public class AddAlertActivity extends AppCompatActivity {
                     }
                 }
                 if(count>threshold){
-
                     //send to adminAlerts
                     Log.i("threshold","threshold reached");
-                    AdminAlerts adminAlert = new AdminAlerts(type,city,false);
+                    String reco = alertclass.getAlertTime() + alertclass.getAlertLocation() + alertclass.getAlertType();
+                    AdminAlerts adminAlert = new AdminAlerts(type,city,false,reco);
                     //Log.i("testType",adminAlert.getAlertType());
-                    DatabaseReference admindb = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("AdminAlerts");
-                    admindb.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    adminMaxid = snapshot.child("AdminAlerts").getChildrenCount();
+                    Boolean alreadyExist = false;
+                    //twra prepei na ksanabalw to check gia to reco
+                    for(int i = 1; i < snapshot.child("AdminAlerts").getChildrenCount() + 1; i++){
 
-                            if(snapshot.exists()){
-                                //get maxid from AdminAlerts DB
-                                adminMaxid = snapshot.getChildrenCount();
-                                Log.i("Adminmaxid",String.valueOf(adminMaxid));
-                            }
-
+                        String childRec = snapshot.child("AdminAlerts").child(String.valueOf(i)).child("reco").getValue(String.class);
+                        if(childRec.equals(reco)){
+                            //ayto shmainei oti idi yparxei
+                            //do nothing
+                            alreadyExist =true;
+                            Log.i("ChildRec",childRec);
+                            Log.i("reco",reco);
+                            Log.i("yparxei hdh","den graftike kati");
+                            break;
+                        }else{
+                            Log.i("Unique Reco","den yparxei .twra tha graftei");
+                            //db.child("AdminAlerts").child(String.valueOf(adminMaxid + 1)).setValue(adminAlert);
                         }
+                    }
+                    if (alreadyExist){
+                        Log.i("yparxei hdh","den graftike kati");
+                    }else {
+                        Log.i("Unique Reco","den yparxei .twra tha graftei");
+                        db.child("AdminAlerts").child(String.valueOf(adminMaxid + 1)).setValue(adminAlert);
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
-                    admindb.child(String.valueOf(adminMaxid + 1)).setValue(adminAlert);
+
+
+//                    admindb.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//                            if(snapshot.exists()){
+//                                //get maxid from AdminAlerts DB
+//                                adminMaxid = snapshot.child("AdminAlerts").getChildrenCount();
+//                                Log.i("Adminmaxid",String.valueOf(adminMaxid));
+//
+//                                for(int i = 1; i < snapshot.child("AdminAlerts").getChildrenCount() + 1; i++){
+//                                    String childRec = snapshot.child("AdminAlerts").child(String.valueOf(i)).child("reco").getValue(String.class);
+//                                    if(childRec.equals(reco)){
+//                                        //ayto shmainei oti idi yparxei
+//                                        //do nothing
+//                                        Log.i("ChildRec",childRec);
+//                                        Log.i("reco",reco);
+//                                        Log.i("yparxei hdh","den graftike kati");
+//
+//                                    }else{
+//                                        Log.i("ChildRec",childRec);
+//                                        Log.i("reco",reco);
+//                                        Log.i("den yparxei","graftike kati");
+//                                        //ΔΕΝ ΚΑΤΑΛΑΒΑΙΝΩ ΠΩΣ ΓΙΝΕΤΑΙ ΝΑ ΜΗΝ ΜΠΑΙΝΕΙ ΕΔΩ ΜΕΣΑ ΚΑΙ ΝΑ ΤΟ ΕΚΤΕΛΕΙ .....
+//                                        admindb.child("AdminAlerts").child(String.valueOf(adminMaxid + 1)).setValue(adminAlert);
+//                                    }
+//                                }
+//                            }
+//
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//                        }
+//                    });
+
                 }
-
-
             }
 
             @Override
@@ -220,14 +295,6 @@ public class AddAlertActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-        //if ola komple
-        //first get maxId from adminAlertDB
-        //write to adminAlert
 
 
     }

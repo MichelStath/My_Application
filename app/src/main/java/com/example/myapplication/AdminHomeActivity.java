@@ -32,6 +32,7 @@ public class AdminHomeActivity extends AppCompatActivity {
     String at;
     String al;
     String ir;
+    String reco;
 
     private DatabaseReference mDatabase;
 
@@ -50,10 +51,12 @@ public class AdminHomeActivity extends AppCompatActivity {
                     at =  postSnapshot.child("alertType").getValue().toString();
                     al =  postSnapshot.child("alertLocation").getValue().toString();
                     ir =  postSnapshot.child("read").getValue().toString();
-                    items2.add(new AdminAlerts(at,al,Boolean.parseBoolean(ir)));
+                    reco = postSnapshot.child("reco").getValue().toString();
+                    items2.add(new AdminAlerts(at,al,Boolean.parseBoolean(ir),reco));
                     Log.i("Alert Type ",at);
                     Log.i("Alert Location ",al);
                     Log.i("isRead",ir);
+                    //Log.i("Reco",reco);
 
                 }
                 RecyclerView recyclerView = findViewById(R.id.recyclerview);
