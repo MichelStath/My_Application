@@ -131,11 +131,12 @@ public class AddAlertActivity extends AppCompatActivity {
 
             final AlertDialog alert = dialog.create();
             alert.show();
-            //removeExpiredAlerts();////MHN KSEXASW NA TO FTIAKSW
+            removeExpiredAlerts();
         }else {
             alertclass = new AlertClass(currentUsername,currentFixedCity,currentDatetime,selected,currentAlertDesc);
             //write to db//
             mDatabase.child(String.valueOf(maxid + 1)).setValue(alertclass);
+            removeExpiredAlerts();
             addAlertToAdmin(alertclass,3);
         }
     }
@@ -160,6 +161,7 @@ public class AddAlertActivity extends AppCompatActivity {
         //ΛΕΙΤΟΥΡΓΕΙ ΚΑΝΟΝΙΚΑ ΑΠΛΑ **** ΑΜΑ ΔΕΝ ΣΒΗΣΕΙ ΤΟ ΤΕΛΕΥΤΑΙΟ ΠΑΙΔΙ ΔΕΝ ΜΠΟΡΕΙ ΝΑ ΞΑΝΑΓΡΑΨΕΙ ΑΛΛΟ...ΛΟΓΩ ID
         DatabaseReference expdb = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Alerts");
         String today = dateformat.format(c.getTime());
+        AlertClass expAlert = new AlertClass("Exp","Exp","Exp","Exp","Exp");
         Log.i("today",today);//all good
         expdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -170,7 +172,7 @@ public class AddAlertActivity extends AppCompatActivity {
                         Log.i("itemFromTodat",testitem.getAlertTime());
                     }else {
                         Log.i("itemFromOtherDay",testitem.getAlertTime());
-                        expdb.child(String.valueOf(i)).removeValue();
+                        expdb.child(String.valueOf(i)).setValue(expAlert);
                     }
                 }
             }
