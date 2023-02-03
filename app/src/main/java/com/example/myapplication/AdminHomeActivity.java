@@ -48,16 +48,17 @@ public class AdminHomeActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<AdminAlerts> items2 = new ArrayList<AdminAlerts>();
                 for (DataSnapshot postSnapshot: snapshot.getChildren()){
+
                     at =  postSnapshot.child("alertType").getValue().toString();
                     al =  postSnapshot.child("alertLocation").getValue().toString();
                     ir =  postSnapshot.child("read").getValue().toString();
                     reco = postSnapshot.child("reco").getValue().toString();
-                    items2.add(new AdminAlerts(at,al,Boolean.parseBoolean(ir),reco));
-                    Log.i("Alert Type ",at);
-                    Log.i("Alert Location ",al);
-                    Log.i("isRead",ir);
-                    //Log.i("Reco",reco);
-
+                    if(ir == "false"){
+                        //θα εμφανιζονται μονο τα αλερτ που δεν ειναι διαβασμενα
+                        items2.add(new AdminAlerts(at,al,Boolean.parseBoolean(ir),reco));
+                    }else {
+                        Log.i("read","true");
+                    }
                 }
                 RecyclerView recyclerView = findViewById(R.id.recyclerview);
                 recyclerView.setLayoutManager(new LinearLayoutManager(AdminHomeActivity.this));

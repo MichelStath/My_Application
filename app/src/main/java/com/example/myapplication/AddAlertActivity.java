@@ -158,14 +158,14 @@ public class AddAlertActivity extends AppCompatActivity {
     }
 
     public void removeExpiredAlerts(){
-        //ΛΕΙΤΟΥΡΓΕΙ ΚΑΝΟΝΙΚΑ ΑΠΛΑ **** ΑΜΑ ΔΕΝ ΣΒΗΣΕΙ ΤΟ ΤΕΛΕΥΤΑΙΟ ΠΑΙΔΙ ΔΕΝ ΜΠΟΡΕΙ ΝΑ ΞΑΝΑΓΡΑΨΕΙ ΑΛΛΟ...ΛΟΓΩ ID
         DatabaseReference expdb = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Alerts");
         String today = dateformat.format(c.getTime());
         AlertClass expAlert = new AlertClass("Exp","Exp","Exp","Exp","Exp");
-        Log.i("today",today);//all good
+        Log.i("today",today);
         expdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //ISWS BALOYME SNAPSHOTNOTNULL
                 for(int i = 1; i < snapshot.getChildrenCount() + 1 ; i++){
                     AlertClass testitem = snapshot.child(String.valueOf(i)).getValue(AlertClass.class);
                     if(testitem.getAlertTime().equals(today)){
@@ -182,7 +182,6 @@ public class AddAlertActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     public void addAlertToAdmin(AlertClass alertclass, int threshold ){
@@ -217,18 +216,16 @@ public class AddAlertActivity extends AppCompatActivity {
                     Boolean alreadyExist = false;
                     //twra prepei na ksanabalw to check gia to reco
                     for(int i = 1; i < snapshot.child("AdminAlerts").getChildrenCount() + 1; i++){
-
                         String childRec = snapshot.child("AdminAlerts").child(String.valueOf(i)).child("reco").getValue(String.class);
                         if(childRec.equals(reco)){
                             //ayto shmainei oti idi yparxei
-                            //do nothing
                             alreadyExist =true;
                             Log.i("ChildRec",childRec);
                             Log.i("reco",reco);
                             Log.i("yparxei hdh","den graftike kati");
                             break;
                         }else{
-                            Log.i("Unique Reco","den yparxei .twra tha graftei");
+                            //Log.i("Unique Reco","den yparxei .twra tha graftei");
                             //db.child("AdminAlerts").child(String.valueOf(adminMaxid + 1)).setValue(adminAlert);
                         }
                     }
@@ -246,7 +243,5 @@ public class AddAlertActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 }
