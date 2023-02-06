@@ -71,6 +71,7 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.stats:
                 Toast.makeText(this, "item1 pressed", Toast.LENGTH_SHORT).show();
                 Intent intent2 = new Intent(this,StatsActivity.class);
+                intent2.putExtra("currentFixedCity",currentFixedCity);
                 startActivity(intent2);
                 //na pernaei kai thn polh
                 return true;

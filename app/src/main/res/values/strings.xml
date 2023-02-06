@@ -16,10 +16,10 @@
     <string name="newAlert">Set Alert</string>
     <string name="choose">choose</string>
     <string name="fire" translatable="false">Fire</string>
-    <string name="rain" translatable="false">Raining</string>
+    <string name="rain" translatable="false">Rain</string>
     <string name="empty_alertType_title">No Alert selected</string>
     <string name="empty_alertType_mess">Select an Alert to continue</string>
-    <string name="hot" translatable="false">Hot wheather</string>
+    <string name="hot" translatable="false">Hot</string>
     <string name="s0">Statistics</string>
     <string name="s1">Total Fire Alerts</string>
     <string name="s2">Total Rain Alerts</string>

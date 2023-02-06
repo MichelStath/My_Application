@@ -42,6 +42,7 @@ public class AddAlertActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     long maxid = 0;
     long adminMaxid =0;
+    long statMaxid = 0;
     int testCount = 0;
     AlertClass alertclass;
     Location currentLocation;
@@ -53,12 +54,13 @@ public class AddAlertActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_alert);
         testCount = 0;
-        mDatabase = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Alerts");
+        mDatabase = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    maxid = snapshot.getChildrenCount();
+                    maxid = snapshot.child("Alerts").getChildrenCount();
+                    statMaxid = snapshot.child("Stats").getChildrenCount();
                 }
 
             }
@@ -135,9 +137,11 @@ public class AddAlertActivity extends AppCompatActivity {
             removeExpiredAlerts();
         }else {
             alertclass = new AlertClass(currentUsername,currentFixedCity,currentDatetime,selected,currentAlertDesc);
+            Statistic stat = new Statistic(selected,currentFixedCity,currentDatetime);
             //write to db//
             //edw tha prepei na ksanagraftei gia ta statistika
-            mDatabase.child(String.valueOf(maxid + 1)).setValue(alertclass);
+            mDatabase.child("Alerts").child(String.valueOf(maxid + 1)).setValue(alertclass);
+            mDatabase.child("Stats").child(String.valueOf(statMaxid + 1)).setValue(stat);
             removeExpiredAlerts();
             addAlertToAdmin(alertclass,3);
         }
