@@ -22,7 +22,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="30dp"
-            android:text="Stats" />
+            android:text="Stats"
+            android:textColor="@color/black"
+            android:textSize="26sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,14 +37,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total Fire Alerts" />
+                android:text="@string/s1"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/totalFireAlerts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -55,14 +63,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total Rain Alerts" />
+                android:text="@string/s2"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/totalRainAlerts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView4" />
+                android:text="TextView4"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -75,14 +89,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total Hot Alerts" />
+                android:text="@string/s3"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/totalHotAlerts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="textView6" />
+                android:text="textView6"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -95,14 +115,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total Alerts" />
+                android:text="@string/s4"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/totalAlerts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="textView6" />
+                android:text="textView6"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -115,14 +141,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total Fire Alerts Today" />
+                android:text="@string/s5"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/totalFireAlertsToday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView4" />
+                android:text="TextView4"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -135,14 +167,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total Rain Alerts Today" />
+                android:text="@string/s6"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/totalRainAlertsToday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView4" />
+                android:text="TextView4"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -155,14 +193,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total Hot Alerts Today" />
+                android:text="@string/s7"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/totalHotAlertsToday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView4" />
+                android:text="TextView4"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -175,14 +219,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total Alerts Today" />
+                android:text="@string/s8"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/totalAlertsToday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="textView6" />
+                android:text="textView6"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -195,14 +245,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total Fire Alerts Today Nearby" />
+                android:text="@string/s9"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/totalFireAlertsTodayCity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView4" />
+                android:text="TextView4"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -215,14 +271,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total Rain Alerts Today Nearby" />
+                android:text="@string/s10"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/totalRainAlertsTodayCity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView4" />
+                android:text="TextView4"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -235,14 +297,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total Hot Alerts Today Nearby" />
+                android:text="@string/s11"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/totalHotAlertsTodayCity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView4" />
+                android:text="TextView4"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -255,14 +323,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total Today Alerts Nearby" />
+                android:text="@string/s12"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/totalAlertsTodayCity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="textView6" />
+                android:text="textView6"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

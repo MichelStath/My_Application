@@ -16,9 +16,19 @@
     <string name="description">Περιγραφή</string>
     <string name="newAlert">Ειδοποίηση κινδίνου</string>
     <string name="choose">Επιλέξτε</string>
-    <string name="fire">Φωτιά</string>
-    <string name="hot">Αυξηση θερμοκρασίας</string>
-    <string name="rain">Εντονη βροχή</string>
     <string name="empty_alertType_title">Δεν επιλεχτηκε κινδυνος</string>
     <string name="empty_alertType_mess">Επιλεξτε μια κατηγορια κινδυνου για να συνεχίσετε</string>
+    <string name="s1">Κίνδυνοι Φωτιάς</string>
+    <string name="s2">Κίνδυνοι Βροχής</string>
+    <string name="s3">Κίνδυνοι Ζέστης</string>
+    <string name="s4">Συνολικοί Κίνδυνοι</string>
+    <string name="s5">Κίνδυνοι Φωτιάς Σήμερα</string>
+    <string name="s6">Κίνδυνοι Βροχής Σήμερα</string>
+    <string name="s7">Κίνδυνοι Ζέστης Σήμερα</string>
+    <string name="s8">Συνολικοί Κίνδυνοι Σήμερα</string>
+    <string name="s9">Κίνδυνοι Φωτιάς Σήμερα Κοντά</string>
+    <string name="s10">Κίνδυνοι Βροχής Σήμερα Κοντά</string>
+    <string name="s11">Κίνδυνοι Ζέστης Σήμερα Κοντά</string>
+    <string name="s12">Συνολικοί Κίνδυνοι Σήμερα Κοντά</string>
+    <string name="s0">Στατιστικά</string>
 </resources>

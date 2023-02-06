@@ -15,11 +15,23 @@
     <string name="description">Description</string>
     <string name="newAlert">Set Alert</string>
     <string name="choose">choose</string>
-    <string name="fire">Fire</string>
-    <string name="hot">Hot wheather</string>
-    <string name="rain">Raining</string>
+    <string name="fire" translatable="false">Fire</string>
+    <string name="rain" translatable="false">Raining</string>
     <string name="empty_alertType_title">No Alert selected</string>
     <string name="empty_alertType_mess">Select an Alert to continue</string>
-
+    <string name="hot" translatable="false">Hot wheather</string>
+    <string name="s0">Statistics</string>
+    <string name="s1">Total Fire Alerts</string>
+    <string name="s2">Total Rain Alerts</string>
+    <string name="s3">Total Hot Alerts</string>
+    <string name="s4">Total Alerts</string>
+    <string name="s5">Total Fire Alerts Today</string>
+    <string name="s6">Total Rain Alerts Today</string>
+    <string name="s7">Total Hot Alerts Today</string>
+    <string name="s8">Total Alerts Today</string>
+    <string name="s9">Total Fire Alerts Today Nearby</string>
+    <string name="s10">Total Rain Alerts Today Nearby</string>
+    <string name="s11">Total Hot Alerts Today Nearby</string>
+    <string name="s12">Total Alerts Today Nearby</string>
 
 </resources>
