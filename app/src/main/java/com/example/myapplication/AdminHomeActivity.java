@@ -109,6 +109,7 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
                 startActivity(intent);
                 finish();
                 return true;
+                //na ftiaksw neo stats gia admin poy na thelei mono mera
             default:
                 Toast.makeText(this, "Default", Toast.LENGTH_SHORT).show();
                 return super.onOptionsItemSelected(item);

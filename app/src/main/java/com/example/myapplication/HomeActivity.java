@@ -68,6 +68,12 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 return true;
+            case R.id.stats:
+                Toast.makeText(this, "item1 pressed", Toast.LENGTH_SHORT).show();
+                Intent intent2 = new Intent(this,StatsActivity.class);
+                startActivity(intent2);
+                //na pernaei kai thn polh
+                return true;
             default:
                 Toast.makeText(this, "Default", Toast.LENGTH_SHORT).show();
                 return super.onOptionsItemSelected(item);
