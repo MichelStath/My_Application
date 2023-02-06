@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class StatsActivity extends AppCompatActivity {
-    TextView totalFireAlertsTV,totalRainAlertsTV,totalHotAlertsTV,totalAlertsTV,
+    public TextView totalFireAlertsTV,totalRainAlertsTV,totalHotAlertsTV,totalAlertsTV,
                 totalFireAlertsTodayTV,totalRainAlertsTodayTV,totalHotAlertsTodayTV,totalAlertsTodayTV,
                 totalFireAlertsTodayCityTV,totalRainAlertsTodayCityTV,totalHotAlertsTodayCityTV,totalAlertsTodayCityTV;
     public int totalFireAlertsCounter, totalRainAlertsCounter, totalHotAlertsCounter,totalAlertsCounter,
@@ -157,6 +157,21 @@ public class StatsActivity extends AppCompatActivity {
                 Log.i("Today City Fire Counter",String.valueOf(totalRainAlertsTodayCityCounter));
                 totalAlertsTodayCounter = totalFireAlertsTodayCounter + totalHotAlertsTodayCounter + totalRainAlertsTodayCounter;
                 totalAlertsTodayCityCounter = totalFireAlertsTodayCityCounter + totalHotAlertsTodayCityCounter + totalRainAlertsTodayCityCounter;
+
+                //Set Values to TextViews
+                totalFireAlertsTV.setText(String.valueOf(totalFireAlertsCounter));
+                totalRainAlertsTV.setText(String.valueOf(totalRainAlertsCounter));
+                totalHotAlertsTV.setText(String.valueOf(totalHotAlertsCounter));
+                totalAlertsTV.setText(String.valueOf(totalAlertsCounter));
+                totalFireAlertsTodayTV.setText(String.valueOf(totalFireAlertsTodayCounter));
+                totalRainAlertsTodayTV.setText(String.valueOf(totalRainAlertsTodayCounter));
+                totalHotAlertsTodayTV.setText(String.valueOf(totalHotAlertsTodayCounter));
+                totalAlertsTodayTV.setText(String.valueOf(totalAlertsTodayCounter));
+                totalFireAlertsTodayCityTV.setText(String.valueOf(totalFireAlertsTodayCityCounter));
+                totalRainAlertsTodayCityTV.setText(String.valueOf(totalRainAlertsTodayCityCounter));
+                totalHotAlertsTodayCityTV.setText(String.valueOf(totalHotAlertsTodayCityCounter));
+                totalAlertsTodayCityTV.setText(String.valueOf(totalAlertsTodayCityCounter));
+
             }
 
             @Override
@@ -164,20 +179,5 @@ public class StatsActivity extends AppCompatActivity {
 
             }
         });
-
-        //Set Values to TextViews
-        totalFireAlertsTV.setText(String.valueOf(totalFireAlertsCounter));
-        totalRainAlertsTV.setText(String.valueOf(totalRainAlertsCounter));
-        totalHotAlertsTV.setText(String.valueOf(totalHotAlertsCounter));
-        totalAlertsTV.setText(String.valueOf(totalAlertsCounter));
-        totalFireAlertsTodayTV.setText(String.valueOf(totalFireAlertsTodayCounter));
-        totalRainAlertsTodayTV.setText(String.valueOf(totalRainAlertsTodayCounter));
-        totalHotAlertsTodayTV.setText(String.valueOf(totalHotAlertsTodayCounter));
-        totalAlertsTodayTV.setText(String.valueOf(totalAlertsTodayCounter));
-        totalFireAlertsTodayCityTV.setText(String.valueOf(totalFireAlertsTodayCityCounter));
-        totalRainAlertsTodayCityTV.setText(String.valueOf(totalRainAlertsTodayCityCounter));
-        totalHotAlertsTodayCityTV.setText(String.valueOf(totalHotAlertsTodayCityCounter));
-        totalAlertsTodayCityTV.setText(String.valueOf(totalAlertsTodayCityCounter));
     }
-
 }
