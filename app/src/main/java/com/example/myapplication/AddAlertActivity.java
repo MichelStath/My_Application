@@ -11,6 +11,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.accessibility.AccessibilityRecord;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -135,6 +136,7 @@ public class AddAlertActivity extends AppCompatActivity {
         }else {
             alertclass = new AlertClass(currentUsername,currentFixedCity,currentDatetime,selected,currentAlertDesc);
             //write to db//
+            //edw tha prepei na ksanagraftei gia ta statistika
             mDatabase.child(String.valueOf(maxid + 1)).setValue(alertclass);
             removeExpiredAlerts();
             addAlertToAdmin(alertclass,3);
@@ -158,21 +160,32 @@ public class AddAlertActivity extends AppCompatActivity {
     }
 
     public void removeExpiredAlerts(){
-        DatabaseReference expdb = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("Alerts");
+        DatabaseReference expdb = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         String today = dateformat.format(c.getTime());
         AlertClass expAlert = new AlertClass("Exp","Exp","Exp","Exp","Exp");
+        ActiveAlert expActiveAlert = new ActiveAlert("Exp","Exp","Exp","Exp");
         Log.i("today",today);
         expdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //ISWS BALOYME SNAPSHOTNOTNULL
-                for(int i = 1; i < snapshot.getChildrenCount() + 1 ; i++){
-                    AlertClass testitem = snapshot.child(String.valueOf(i)).getValue(AlertClass.class);
+                //edw expire ta alert
+                for(int i = 1; i < snapshot.child("Alerts").getChildrenCount() + 1 ; i++){
+                    AlertClass testitem = snapshot.child("Alerts").child(String.valueOf(i)).getValue(AlertClass.class);
                     if(testitem.getAlertTime().equals(today)){
                         Log.i("itemFromTodat",testitem.getAlertTime());
                     }else {
                         Log.i("itemFromOtherDay",testitem.getAlertTime());
-                        expdb.child(String.valueOf(i)).setValue(expAlert);
+                        expdb.child("Alerts").child(String.valueOf(i)).setValue(expAlert);
+                    }
+                }
+                //edw expire ta activeAlerts Doyleyei kai ayto
+                for(int i = 1; i < snapshot.child("ActiveAlerts").getChildrenCount() + 1 ; i++){
+                    ActiveAlert testitem = snapshot.child("ActiveAlerts").child(String.valueOf(i)).getValue(ActiveAlert.class);
+                    if(testitem.getAlertDate().equals(today)){
+                        Log.i("itemFromTodat",testitem.getAlertDate());
+                    }else {
+                        Log.i("itemFromOtherDay",testitem.getAlertDate());
+                        expdb.child("ActiveAlerts").child(String.valueOf(i)).setValue(expActiveAlert);
                     }
                 }
             }
