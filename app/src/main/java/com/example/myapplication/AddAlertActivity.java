@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -134,7 +135,7 @@ public class AddAlertActivity extends AppCompatActivity {
 
             final AlertDialog alert = dialog.create();
             alert.show();
-            removeExpiredAlerts();
+            //removeExpiredAlerts();
         }else {
             alertclass = new AlertClass(currentUsername,currentFixedCity,currentDatetime,selected,currentAlertDesc);
             Statistic stat = new Statistic(selected,currentFixedCity,currentDatetime);
@@ -144,6 +145,8 @@ public class AddAlertActivity extends AppCompatActivity {
             mDatabase.child("Stats").child(String.valueOf(statMaxid + 1)).setValue(stat);
             removeExpiredAlerts();
             addAlertToAdmin(alertclass,3);
+            Toast.makeText(this, getString(R.string.new_alert_okey), Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 

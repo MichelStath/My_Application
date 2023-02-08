@@ -67,9 +67,11 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             //check if username already registered
                             if(snapshot.hasChild(username)){
-                                Toast.makeText(RegisterActivity.this, "Username Taken..", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, getString(R.string.username_ar_reg), Toast.LENGTH_SHORT).show();
                             }else {
                                 writeNewUser(user);
+                                goToLogin(view);
+
                             }
                         }
 

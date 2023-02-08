@@ -39,5 +39,10 @@
     <string name="hot_alert_message">too hot stay home ,turn on fan</string>
     <string name="rain_alert_title">Rain is coming</string>
     <string name="rain_alert_message">too much rain, un umbrela will not save you .Stay home</string>
+    <string name="new_alert_okey">Alert Registered successfully</string>
+    <string name="accept">ACCEPT</string>
+    <string name="decline">DECLINE</string>
+    <string name="un_not_reg">Username not Regisered</string>
+    <string name="username_ar_reg">Username is Taken</string>
 
 </resources>

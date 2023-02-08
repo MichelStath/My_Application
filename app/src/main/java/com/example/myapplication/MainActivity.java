@@ -75,10 +75,10 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                         }else {
-                            Toast.makeText(MainActivity.this, "Wrong Pass", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, getString(R.string.wrongUP), Toast.LENGTH_SHORT).show();
                         }
                     }else {
-                        Toast.makeText(MainActivity.this, "Username not Registered", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, getString(R.string.un_not_reg), Toast.LENGTH_SHORT).show();
                     }
                 }
 

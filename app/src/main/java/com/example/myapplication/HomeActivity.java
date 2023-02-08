@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
             Log.i("UserLogin","Unable to load extras");
         }
 
-        db.addValueEventListener(new ValueEventListener() {
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot postsnap: snapshot.getChildren()){

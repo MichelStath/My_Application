@@ -37,4 +37,9 @@
     <string name="hot_alert_message">ΜΕΙΝΕ ΣΠΙΤΙ ΚΑΙ ΜΗΝ ΒΓΕΙΣ</string>
     <string name="rain_alert_title">ΒΡΟΧΗ</string>
     <string name="rain_alert_message">ΒΡΕΧΕΙ ΠΟΛΥ,Η ΟΜΠΡΕΛΑ ΔΕΝ ΘΑ ΣΕ ΣΩΣΕΙ .ΜΕΙΝΕ ΣΠΙΤΙ.</string>
+    <string name="new_alert_okey">Ο κίνδυνος καταχωρήθηκε με επιτυχία</string>
+    <string name="accept">ΑΠΟΔΟΧΗ</string>
+    <string name="decline">ΑΠΟΡΡΙΨΗ</string>
+    <string name="un_not_reg">Δεν βρέθηκε χρήστης με αυτό το όνομα</string>
+    <string name="username_ar_reg">Το όνομα χρήστη είναι πιασμένο</string>
 </resources>
