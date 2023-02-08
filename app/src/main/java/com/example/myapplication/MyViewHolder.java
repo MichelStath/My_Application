@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
-    TextView alertTypeTV, alertLocationTV, recoTV, idTV;
+    TextView alertTypeTV, alertLocationTV, alertDeskTV;
     Button acceptBTN, declineBTN;
 //πρεπει να βαλω και reco + id
 
@@ -16,6 +16,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         alertTypeTV = itemView.findViewById(R.id.alertTypeTV);
         alertLocationTV = itemView.findViewById(R.id.alertLocationTV);
+        alertDeskTV = itemView.findViewById(R.id.alertDescTV);
         acceptBTN = itemView.findViewById(R.id.acceptBTN);
         declineBTN = itemView.findViewById(R.id.declineBTN);
 

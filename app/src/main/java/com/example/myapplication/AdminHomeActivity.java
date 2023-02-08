@@ -35,6 +35,7 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
     String al;
     String ir;
     String reco;
+    String desc;
 
     DatabaseReference ref;
 
@@ -56,8 +57,9 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
                     al =  postsnap.child("alertLocation").getValue().toString();
                     ir =  postsnap.child("read").getValue().toString();
                     reco = postsnap.child("reco").getValue().toString();
+                    desc = postsnap.child("desc").getValue().toString();
                     if(ir.equals("false")){
-                        list.add(new AdminAlerts(at,al,Boolean.parseBoolean(ir),reco));
+                        list.add(new AdminAlerts(at,al,Boolean.parseBoolean(ir),reco,desc));
                     }else {
                         Log.i("isRead","true,Not show");
                     }
@@ -72,9 +74,6 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
 
             }
         });
-
-        testList.add(new AdminAlerts("a","s",true,"02-02-2023thessalonikiHot wheather"));
-        testList.add(new AdminAlerts("f","d",true,"02-05-2023athinafire"));
 
         if(extras != null){
             currentUsername = extras.getString("intentUsername");
@@ -118,6 +117,7 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
         String alertType = list.get(position).getAlertType();
         String alertLocation = list.get(position).getAlertLocation();
         Boolean isRead = list.get(position).getRead();
+        String desc = list.get(position).getDesc();
         String alertReco = list.get(position).getReco();
         //generate date from reco
         String alertDate = alertReco.substring(0,10);
@@ -126,7 +126,7 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
         DatabaseReference db = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         //make ActiveAlert & AdminAlert object
         ActiveAlert activeAlert = new ActiveAlert(alertType,alertLocation,alertDate,alertReco);
-        AdminAlerts expAdminAlert = new AdminAlerts(alertType,alertLocation,true,alertReco);
+        AdminAlerts expAdminAlert = new AdminAlerts(alertType,alertLocation,true,alertReco,desc);
         db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -164,11 +164,12 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
         String alertType = list.get(position).getAlertType();
         String alertLocation = list.get(position).getAlertLocation();
         Boolean isRead = list.get(position).getRead();
+        String desc = list.get(position).getDesc();
         String alertReco = list.get(position).getReco();
         //prepei to isRead na ginei true
         DatabaseReference db = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         //make ActiveAlert & AdminAlert object
-        AdminAlerts expAdminAlert = new AdminAlerts(alertType,alertLocation,true,alertReco);
+        AdminAlerts expAdminAlert = new AdminAlerts(alertType,alertLocation,true,alertReco,desc);
         //prepei to isRead na ginei true
         db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

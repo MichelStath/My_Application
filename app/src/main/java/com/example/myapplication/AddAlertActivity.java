@@ -207,6 +207,7 @@ public class AddAlertActivity extends AppCompatActivity {
         //Check number of same type alerts in current location
         String city = alertclass.getAlertLocation();
         String type = alertclass.getAlertType();
+        String desc = alertclass.getAlertDesc();
         db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -227,7 +228,7 @@ public class AddAlertActivity extends AppCompatActivity {
                     //send to adminAlerts
                     Log.i("threshold","threshold reached");
                     String reco = alertclass.getAlertTime() + alertclass.getAlertLocation() + alertclass.getAlertType();
-                    AdminAlerts adminAlert = new AdminAlerts(type,city,false,reco);
+                    AdminAlerts adminAlert = new AdminAlerts(type,city,false,reco,desc);
                     //Log.i("testType",adminAlert.getAlertType());
                     adminMaxid = snapshot.child("AdminAlerts").getChildrenCount();
                     Boolean alreadyExist = false;

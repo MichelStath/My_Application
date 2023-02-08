@@ -31,6 +31,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.alertTypeTV.setText(adminAlerts.get(position).getAlertType());
         holder.alertLocationTV.setText(adminAlerts.get(position).getAlertLocation());
+        holder.alertDeskTV.setText(adminAlerts.get(position).getDesc());
 
     }
 
