@@ -33,5 +33,11 @@
     <string name="s10">Total Rain Alerts Today Nearby</string>
     <string name="s11">Total Hot Alerts Today Nearby</string>
     <string name="s12">Total Alerts Today Nearby</string>
+    <string name="fire_alert_title">Fire</string>
+    <string name="fire_alert_message">plz move</string>
+    <string name="hot_alert_title">Hot weather</string>
+    <string name="hot_alert_message">too hot stay home ,turn on fan</string>
+    <string name="rain_alert_title">Rain is coming</string>
+    <string name="rain_alert_message">too much rain, un umbrela will not save you .Stay home</string>
 
 </resources>

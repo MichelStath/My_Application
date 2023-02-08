@@ -14,8 +14,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,63 +24,57 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class AdminHomeActivity extends AppCompatActivity implements RecyclerViewInterface {
     TextView adminUsernameTV;
     AdminAlerts adminAlerts;
     List<AdminAlerts> testList = new ArrayList<>();
-    public List<AdminAlerts> items2 = new ArrayList<AdminAlerts>();
+    List<AdminAlerts> list = new ArrayList<>();
 
     String at;
     String al;
     String ir;
     String reco;
 
-    private DatabaseReference mDatabase;
+    DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home);
-        //List<AdminAlerts> items2 = new ArrayList<AdminAlerts>();
-        items2.clear();
         Bundle extras = getIntent().getExtras();
         String currentUsername = null;
-        mDatabase = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("AdminAlerts");
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+
+
+        ref = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child("AdminAlerts");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //items2 = new ArrayList<AdminAlerts>();
-                for (DataSnapshot postSnapshot: snapshot.getChildren()){
-
-                    at =  postSnapshot.child("alertType").getValue().toString();
-                    al =  postSnapshot.child("alertLocation").getValue().toString();
-                    ir =  postSnapshot.child("read").getValue().toString();
-                    reco = postSnapshot.child("reco").getValue().toString();
-                    if(ir == "false"){
-                        //θα εμφανιζονται μονο τα αλερτ που δεν ειναι διαβασμενα
-                        items2.add(new AdminAlerts(at,al,Boolean.parseBoolean(ir),reco));
+                list.clear();
+                for(DataSnapshot postsnap: snapshot.getChildren()){
+                    at =  postsnap.child("alertType").getValue().toString();
+                    al =  postsnap.child("alertLocation").getValue().toString();
+                    ir =  postsnap.child("read").getValue().toString();
+                    reco = postsnap.child("reco").getValue().toString();
+                    if(ir.equals("false")){
+                        list.add(new AdminAlerts(at,al,Boolean.parseBoolean(ir),reco));
                     }else {
-                        Log.i("read","true");
+                        Log.i("isRead","true,Not show");
                     }
                 }
-
-                Log.i("ListSize",String.valueOf(items2.size()));
+                RecyclerView recyclerView = findViewById(R.id.recyclerview);
+                recyclerView.setLayoutManager(new LinearLayoutManager(AdminHomeActivity.this));
+                recyclerView.setAdapter(new MyAdapter(getApplicationContext(),list,AdminHomeActivity.this));
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("The read failed: " + error.getMessage());
+
             }
         });
-        Log.i("OutListSize",String.valueOf(items2.size()));
+
         testList.add(new AdminAlerts("a","s",true,"02-02-2023thessalonikiHot wheather"));
         testList.add(new AdminAlerts("f","d",true,"02-05-2023athinafire"));
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(AdminHomeActivity.this));
-        recyclerView.setAdapter(new MyAdapter(getApplicationContext(),testList,this));
-
 
         if(extras != null){
             currentUsername = extras.getString("intentUsername");
@@ -117,15 +111,14 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
     }
     //endregion
 
-
     @Override
     public void onAcceptBtnClicked(int position) {
         ////////*************//////////**********//////////ειναι ετοιμο αρκει να φτιαχτει η το recyclerview///////////*********///////////
         Log.i("AcceptBTN","Pressed");
-        String alertType = testList.get(position).getAlertType();
-        String alertLocation = testList.get(position).getAlertLocation();
-        Boolean isRead = testList.get(position).getRead();
-        String alertReco = testList.get(position).getReco();
+        String alertType = list.get(position).getAlertType();
+        String alertLocation = list.get(position).getAlertLocation();
+        Boolean isRead = list.get(position).getRead();
+        String alertReco = list.get(position).getReco();
         //generate date from reco
         String alertDate = alertReco.substring(0,10);
         Log.i("Date From Reco", isRead.toString());
@@ -143,6 +136,7 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
                     if(dbReco.equals(alertReco)){
                         //entopisthke to ID toy adminalert poy exei to reco poy ekane accept
                         db.child("AdminAlerts").child(String.valueOf(i)).setValue(expAdminAlert);
+                        recreate();
                         Log.i("Admin read", "False changed to True");
                     }else {
                         Log.i("Not same Reco", "Not same Reco");
@@ -160,16 +154,17 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
 
             }
         });
+
     }
 
     @Override
     public void onDeclineBtnClicked(int position) {
         ////////*************//////////**********//////////ειναι ετοιμο αρκει να φτιαχτει η το recyclerview///////////*********///////////
         Log.i("DeclineBTN","Pressed");
-        String alertType = testList.get(position).getAlertType();
-        String alertLocation = testList.get(position).getAlertLocation();
-        Boolean isRead = testList.get(position).getRead();
-        String alertReco = testList.get(position).getReco();
+        String alertType = list.get(position).getAlertType();
+        String alertLocation = list.get(position).getAlertLocation();
+        Boolean isRead = list.get(position).getRead();
+        String alertReco = list.get(position).getReco();
         //prepei to isRead na ginei true
         DatabaseReference db = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         //make ActiveAlert & AdminAlert object
@@ -184,10 +179,10 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
                         //entopisthke to ID toy adminalert poy exei to reco poy ekane accept
                         db.child("AdminAlerts").child(String.valueOf(i)).setValue(expAdminAlert);
                         Log.i("Admin read", "False changed to True");
+                        recreate();
                     }else {
                         Log.i("Not same Reco", "Not same Reco");
                     }
-
                 }
             }
 
@@ -196,6 +191,7 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
 
             }
         });
+
 
     }
 

@@ -31,4 +31,10 @@
     <string name="s11">Κίνδυνοι Ζέστης Σήμερα Κοντά</string>
     <string name="s12">Συνολικοί Κίνδυνοι Σήμερα Κοντά</string>
     <string name="s0">Στατιστικά</string>
+    <string name="fire_alert_title">ΦΩΤΙΑΑΑ</string>
+    <string name="fire_alert_message">ΕΚΕΝΩΣΤΕ ΤΗΝ ΠΕΡΙΟΧΗ</string>
+    <string name="hot_alert_title">ΚΑΥΣΩΝΑΣ</string>
+    <string name="hot_alert_message">ΜΕΙΝΕ ΣΠΙΤΙ ΚΑΙ ΜΗΝ ΒΓΕΙΣ</string>
+    <string name="rain_alert_title">ΒΡΟΧΗ</string>
+    <string name="rain_alert_message">ΒΡΕΧΕΙ ΠΟΛΥ,Η ΟΜΠΡΕΛΑ ΔΕΝ ΘΑ ΣΕ ΣΩΣΕΙ .ΜΕΙΝΕ ΣΠΙΤΙ.</string>
 </resources>
