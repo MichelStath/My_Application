@@ -18,5 +18,5 @@ NOTE : Clients can report only a nearby alert
 
 **Reports Manager**
 Admin can see an alert report only if 
-* more than () Clients have report the exact same Alert
+* more than $a Clients have report the exact same Alert
 * same alerts are reported in one-day period
