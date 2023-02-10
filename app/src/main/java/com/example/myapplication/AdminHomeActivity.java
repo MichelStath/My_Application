@@ -52,6 +52,7 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
+                //ΚΟΙΤΑΩ ΤΟ ΚΑΘΕ ALERT ΠΟΥ ΔΕΝ ΕΧΕΙ ΔΙΑΒΑΣΕΙ Ο ADMIN
                 for(DataSnapshot postsnap: snapshot.getChildren()){
                     at =  postsnap.child("alertType").getValue().toString();
                     al =  postsnap.child("alertLocation").getValue().toString();
@@ -64,6 +65,7 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
                         Log.i("isRead","true,Not show");
                     }
                 }
+                //ΕΜΦΑΝΙΣΗ ΤΩΝ ΑΔΙΑΒΑΣΤΩΝ ALERT ΣΤΟ RECYCLERVIEW
                 RecyclerView recyclerView = findViewById(R.id.recyclerview);
                 recyclerView.setLayoutManager(new LinearLayoutManager(AdminHomeActivity.this));
                 recyclerView.setAdapter(new MyAdapter(getApplicationContext(),list,AdminHomeActivity.this));
@@ -112,8 +114,9 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
 
     @Override
     public void onAcceptBtnClicked(int position) {
-        ////////*************//////////**********//////////ειναι ετοιμο αρκει να φτιαχτει η το recyclerview///////////*********///////////
+        //O ADMIN ΑΠΟΔΕΧΤΗΚΕ ΤΟΝ ΚΙΝΔΥΝΟ ΟΠΟΤΕ ΠΡΕΠΕΙ ΝΑ ΑΠΟΘΗΚΕΥΤΕΙ ΣΤΗΝ ΒΑΣΗ ACTIVEALERT ΓΙΑ ΝΑ ΤΟ ΕΙΔΟΠΟΙΗΘΟΥΝ ΟΙ ΧΡΗΣΤΕΣ
         Log.i("AcceptBTN","Pressed");
+        //ΠΑΙΡΝΩ ΤΑ ΣΤΟΙΧΕΙΑ ΑΠΟ ΕΠΙΛΕΓΜΕΝΟ ALERT
         String alertType = list.get(position).getAlertType();
         String alertLocation = list.get(position).getAlertLocation();
         Boolean isRead = list.get(position).getRead();
@@ -134,7 +137,7 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
                 for(int i = 1; i < snapshot.child("AdminAlerts").getChildrenCount() + 1; i++){
                     String dbReco = snapshot.child("AdminAlerts").child(String.valueOf(i)).child("reco").getValue(String.class);
                     if(dbReco.equals(alertReco)){
-                        //entopisthke to ID toy adminalert poy exei to reco poy ekane accept
+                        //ΤΟ ALERT ΠΟΥ ΠΑΤΗΘΗΚΕ ΠΡΕΠΕΙ ΝΑ ΓΙΝΕΙ ΔΙΑΒΑΣΜΕΝΟ ΩΣΤΕ ΝΑ ΜΗΝ ΞΑΝΑΕΜΦΑΝΙΣΤΕΙ ΣΤΟΝ ADMIN
                         db.child("AdminAlerts").child(String.valueOf(i)).setValue(expAdminAlert);
                         recreate();
                         Log.i("Admin read", "False changed to True");
@@ -143,7 +146,7 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
                     }
 
                 }
-                //Twra prepei na to baloyme sta active alert
+                //ΑΠΟΘΗΚΕΥΣΗ ΤΟΥ ALERT ΣΤΟ ACTIVEALERT
                 long activeAlertMaxid = snapshot.child("ActiveAlerts").getChildrenCount() + 1;
                 db.child("ActiveAlerts").child(String.valueOf(activeAlertMaxid)).setValue(activeAlert);
 
@@ -159,14 +162,13 @@ public class AdminHomeActivity extends AppCompatActivity implements RecyclerView
 
     @Override
     public void onDeclineBtnClicked(int position) {
-        ////////*************//////////**********//////////ειναι ετοιμο αρκει να φτιαχτει η το recyclerview///////////*********///////////
+        //ΒΛ ACCEPTBTN
         Log.i("DeclineBTN","Pressed");
         String alertType = list.get(position).getAlertType();
         String alertLocation = list.get(position).getAlertLocation();
         Boolean isRead = list.get(position).getRead();
         String desc = list.get(position).getDesc();
         String alertReco = list.get(position).getReco();
-        //prepei to isRead na ginei true
         DatabaseReference db = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         //make ActiveAlert & AdminAlert object
         AdminAlerts expAdminAlert = new AdminAlerts(alertType,alertLocation,true,alertReco,desc);

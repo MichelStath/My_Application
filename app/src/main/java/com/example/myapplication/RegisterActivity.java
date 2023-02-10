@@ -56,7 +56,6 @@ public class RegisterActivity extends AppCompatActivity {
                 Boolean isAdmin = isAdminCB.isChecked();
 
                 // Must check if username already exist
-
                 if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password)){
                     Toast.makeText(RegisterActivity.this, "Please add some data.", Toast.LENGTH_SHORT).show();
                 }else{
@@ -80,7 +79,6 @@ public class RegisterActivity extends AppCompatActivity {
                         }
 
                     });
-                    //nav to login OR to home page ?
                 }
             }
         });

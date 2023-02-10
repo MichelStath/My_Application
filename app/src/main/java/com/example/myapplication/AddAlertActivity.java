@@ -150,6 +150,7 @@ public class AddAlertActivity extends AppCompatActivity {
         }
     }
 
+    //ΠΑΙΡΝΟΥΜΕ ΤΗΝ ΠΟΛΗ ΑΠΟ ΤΙΣ ΣΥΝΤΕΤΑΓΜΕΝΕΣ
     public String getLocation(Location location){
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
@@ -167,6 +168,7 @@ public class AddAlertActivity extends AppCompatActivity {
     }
 
     public void removeExpiredAlerts(){
+        //ΨΑΧΝΩ ΠΟΙΑ ALERT ΔΕΝ ΕΧΟΥΝ ΣΗΜΕΡΙΝΗ ΗΜΕΡΟΝΗΝΙΑ ΚΑΙ ΤΑ ΒΑΖΩ ΩΣ ΛΗΓΜΕΝΑ
         DatabaseReference expdb = FirebaseDatabase.getInstance("https://my-application-70087-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         String today = dateformat.format(c.getTime());
         AlertClass expAlert = new AlertClass("Exp","Exp","Exp","Exp","Exp");
@@ -214,7 +216,8 @@ public class AddAlertActivity extends AppCompatActivity {
         db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                //ΚΑΘΕ ΦΟΡΑ ΠΟΥ ΚΑΝΕΙ SUBMIT ΕΝΑ ALERT Ο ΧΡΗΣΤΗΣ ΨΑΧΝΩ
+                //ΠΟΣΑ ΙΔΙΑ ALERT ΥΠΑΡΧΟΥΝ
                 int count = 0;
                 for(int i = 1; i < snapshot.child("Alerts").getChildrenCount() + 1; i++){
                     final String alertType = snapshot.child("Alerts").child(String.valueOf(i)).child("alertType").getValue(String.class);
@@ -227,6 +230,8 @@ public class AddAlertActivity extends AppCompatActivity {
                         Log.i("Count",String.valueOf(count));
                     }
                 }
+                //ΑΝ Ο ΑΡΙΘΜΟΣ ΕΙΝΑΙ ΜΕΓΑΛΥΤΕΡΟΣ ΑΠΟ ΤΟ THRESHOLD
+                //ΤΟΤΕ ΤΟ ALERT ΘΑ ΠΡΟΣΠΑΘΗΣΕΙ ΝΑ ΓΡΑΦΤΕΙ ΣΤΗΝ ΒΑΣΗ ΤΟΥ ADMIN
                 if(count>threshold){
                     //send to adminAlerts
                     Log.i("threshold","threshold reached");
@@ -236,6 +241,8 @@ public class AddAlertActivity extends AppCompatActivity {
                     adminMaxid = snapshot.child("AdminAlerts").getChildrenCount();
                     Boolean alreadyExist = false;
                     //twra prepei na ksanabalw to check gia to reco
+                    //ΤΟ ALERT ΕΙΝΑΙ ΕΤΟΙΜΟ ΝΑ ΓΡΑΦΤΕΙ
+                    //ΠΡΕΠΕΙ ΝΑ ΤΣΕΚΑΡΩ ΟΜΩΣ ΑΝ ΕΙΝΑΙ ΕΙΔΗ ΓΡΑΜΜΕΝΟ ΑΠΟ REQUEST ΑΛΛΟΥ ΧΡΗΣΤΗ
                     for(int i = 1; i < snapshot.child("AdminAlerts").getChildrenCount() + 1; i++){
                         String childRec = snapshot.child("AdminAlerts").child(String.valueOf(i)).child("reco").getValue(String.class);
                         if(childRec.equals(reco)){
@@ -250,10 +257,13 @@ public class AddAlertActivity extends AppCompatActivity {
                             //db.child("AdminAlerts").child(String.valueOf(adminMaxid + 1)).setValue(adminAlert);
                         }
                     }
+
                     if (alreadyExist){
                         Log.i("yparxei hdh","den graftike kati");
                     }else {
                         Log.i("Unique Reco","den yparxei .twra tha graftei");
+                        //ΜΕΤΑ ΑΠΟ ΕΛΕΓΧΟ ΔΕΝ ΒΡΕΘΗΚΕ ΤΟ ΙΔΙΟ
+                        //ΑΝΑΓΝΩΡΙΣΤΙΚΟ ΤΟΥ ALERT ΞΑΝΑ ΣΤΗΝ ΒΑΣΗ ΟΠΟΤΕ ΘΑ ΓΡΑΦΤΕΙ
                         db.child("AdminAlerts").child(String.valueOf(adminMaxid + 1)).setValue(adminAlert);
                     }
                 }

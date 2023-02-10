@@ -44,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
         addAlertBTN = findViewById(R.id.addAlertBTN);
         usernameTV = findViewById(R.id.usernameLB);
         currentFixedCity = getCurrentFixedCity();
+        //currentFixedCity = "city1";
         currentDatetime = dateformat.format(c.getTime());
         //showAlert("Rain");
         Toast.makeText(this, currentFixedCity, Toast.LENGTH_LONG).show();
@@ -63,16 +64,16 @@ public class HomeActivity extends AppCompatActivity {
                     ActiveAlert dbactiveAlert;
                     dbactiveAlert = postsnap.getValue(ActiveAlert.class);
                     if(dbactiveAlert.getAlertDate().equals(currentDatetime)){
-                        //einai shmerinos kindinos
-                        //twra tsekarw topothesia
+                        //Ο ΚΙΝΔΥΝΟΣ ΠΟΥ ΚΟΙΤΑΩ ΕΙΝΑΙ ΣΗΜΕΡΙΝΟΣ
+                        //ΚΟΙΤΑΩ ΑΝ ΕΙΝΑΙ ΣΤΗΝ ΤΟΠΟΘΕΣΙΑ ΤΟΥ ΧΡΗΣΤΗ
                         if(dbactiveAlert.getAlertLocation().equals(currentFixedCity)){
-                            //yparxei kindionos shmera edw poy eimai
-                            //prepei na emfanisw alert me bash to eidos
+                            //ΥΠΑΡΧΕΙ Ο ΚΙΝΔΥΝΟΣ ΣΤΗΝ ΠΕΡΙΟΧΗ
+                            //ΚΟΙΤΑΩ ΤΟ ΕΙΔΟΣ ΚΙΝΔΥΝΟΥ ΚΑΙ ΕΜΦΑΝΙΖΩ ΤΟ ΑΝΤΙΣΤΟΙΧΟ ALERT
                             showAlert(dbactiveAlert.getAlertType());
                         }
                     }else {
-                        //den einai shmerinos kindinos
-                        //prepei na ginei exp
+                        //Ο ΚΙΝΔΥΝΟΣ ΠΟΥ ΕΛΕΓΧΩ ΔΕΝ ΕΙΝΑΙ ΣΗΜΕΡΙΝΟΣ
+                        //ΠΡΕΠΕΙ ΝΑ ΛΗΞΕΙ
                         ActiveAlert expActiveAlert = new ActiveAlert("exp","exp","exp",dbactiveAlert.getAlertReco());
                         db.child(postsnap.getKey()).setValue(expActiveAlert);
                     }
@@ -118,7 +119,6 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent2 = new Intent(this,StatsActivity.class);
                 intent2.putExtra("currentFixedCity",currentFixedCity);
                 startActivity(intent2);
-                //na pernaei kai thn polh
                 return true;
             default:
                 Toast.makeText(this, "Default", Toast.LENGTH_SHORT).show();
@@ -145,6 +145,7 @@ public class HomeActivity extends AppCompatActivity {
         return cityList.get(index);
     }
 
+    //ΕΜΦΑΝΙΣΗ ΚΙΝΔΥΝΟΥ ΜΕ ΠΑΡΑΜΕΤΡΟ ΤΟ ΕΙΔΟΣ
     public void showAlert(String alertType){
 
         switch (alertType){
@@ -165,6 +166,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    //ΜΟΡΦΟΠΟΙΗΣΗ ΠΑΡΑΘΥΡΟΥ ΚΙΝΔΥΝΟΥ
     public void dialogBuilder(String title, String message){
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setCancelable(false);

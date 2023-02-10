@@ -75,9 +75,11 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                         }else {
+                            //wrong username
                             Toast.makeText(MainActivity.this, getString(R.string.wrongUP), Toast.LENGTH_SHORT).show();
                         }
                     }else {
+                        //username not exist in db
                         Toast.makeText(MainActivity.this, getString(R.string.un_not_reg), Toast.LENGTH_SHORT).show();
                     }
                 }
