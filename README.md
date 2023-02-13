@@ -16,7 +16,7 @@
 * Rain  
 NOTE : Clients can report only a nearby alert
 
-**Reports Manager**
+**Reports Manager**   
 Admin can see an alert report only if 
 * more than *a Clients have report the exact same Alert (a can be any number)
 * same alerts are reported in one-day period
