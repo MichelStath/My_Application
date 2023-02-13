@@ -13,7 +13,7 @@
 **Available Alerts**
 * Fire
 * Hotweather
-* Rain
+* Rain  
 NOTE : Clients can report only a nearby alert
 
 **Reports Manager**
